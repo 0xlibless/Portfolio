@@ -66,7 +66,7 @@ export default function Home() {
     <main>
       <Navbar />
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
-         <Spline className="robot" scene="/robot.splinecode" />
+         <Spline className="robot" scene={`${import.meta.env.BASE_URL}robot.splinecode`} />
       </div>
 
       <section id="inicio" style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 2 }}>
