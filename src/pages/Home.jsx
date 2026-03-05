@@ -109,6 +109,18 @@ export default function Home() {
           <h2 className="scroll-animate" style={{ fontSize: '4rem', marginBottom: '2rem' }}>Contacto</h2>
           <Contact/>
       </section>
+
+      <footer className="site-footer">
+        <div className="footer-inner">
+          <span className="footer-label">Visitors</span>
+          <img
+            src="https://hits.sh/github.com/0xlibless/Portfolio.svg?label=&color=df99ff&labelColor=111111&style=flat-square"
+            alt="Visitors"
+            className="footer-hits"
+          />
+        </div>
+        <p className="footer-copy">© {new Date().getFullYear()} Aguatiin · Hecho con React & ❤️</p>
+      </footer>
     </main>
   );
 }

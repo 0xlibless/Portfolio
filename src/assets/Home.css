@@ -226,6 +226,48 @@ a {
 }
 
 /* ============================
+   FOOTER
+   ============================ */
+.site-footer {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 2rem 1rem 2.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.footer-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.footer-label {
+    font-family: 'Interphases Pro', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.footer-hits {
+    height: 22px;
+    border-radius: 6px;
+    filter: brightness(1.15);
+}
+
+.footer-copy {
+    font-family: 'Interphases Pro', sans-serif;
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.2);
+    margin: 0;
+}
+
+/* ============================
    RESPONSIVE TABLET (768–1023px)
    ============================ */
 @media (min-width: 768px) and (max-width: 1023px) {
