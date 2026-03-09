@@ -1,10 +1,24 @@
+import { useState, useEffect } from 'react';
 import Spline from '@splinetool/react-spline';
+import { FaCodeBranch, FaFire, FaGithub } from 'react-icons/fa';
 import '../assets/Home.css';
 import Navbar from '../components/navbar';
-import ProjectCard from '../components/ProjectCard';
+import ProjectCard from '../components/projectcard';
 import { Contact } from '../components/contact';
+import { fetchGitHubStats } from '../utils/GitHubStats';
 
 export default function Home() {
+  const [stats, setStats] = useState(null);
+  const [statsLoading, setStatsLoading] = useState(true);
+  const [statsError, setStatsError] = useState(null);
+
+  useEffect(() => {
+    fetchGitHubStats()
+      .then(data => setStats(data))
+      .catch(() => setStatsError('-'))
+      .finally(() => setStatsLoading(false));
+  }, []);
+
   const projects = [
     {
       title: "KeepIt",
@@ -102,6 +116,34 @@ export default function Home() {
             {projects.map((project, index) => (
               <ProjectCard key={index} {...project} />
             ))}
+            <div className="project-card glass" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1.5rem', padding: '2rem' }}>
+              <h3 style={{ fontFamily: 'Interphases Pro', color: '#fff', fontSize: '1.3rem', margin: 0, letterSpacing: '0.5px' }}>GitHub Stats</h3>
+              {statsLoading && (
+                <p style={{ fontFamily: 'Interphases Pro', color: '#aaa', margin: 0 }}>Cargando...</p>
+              )}
+              {statsError && (
+                <p style={{ fontFamily: 'Interphases Pro', color: '#ff6b6b', fontSize: '0.85rem', margin: 0 }}>{statsError}</p>
+              )}
+              {stats && (
+                <div style={{ display: 'flex', gap: '2rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem' }}>
+                    <FaCodeBranch size={28} color="#df99ff" />
+                    <span style={{ fontFamily: 'Interphases Pro', fontSize: '2.5rem', fontWeight: 'bold', color: '#df99ff', textShadow: '0 0 12px rgba(223,153,255,0.7)', lineHeight: 1 }}>{stats.mergedPRs}</span>
+                    <span style={{ fontFamily: 'Interphases Pro', fontSize: '0.85rem', color: '#ccc' }}>PRs merged</span>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem' }}>
+                    <FaFire size={28} color="#df99ff" />
+                    <span style={{ fontFamily: 'Interphases Pro', fontSize: '2.5rem', fontWeight: 'bold', color: '#df99ff', textShadow: '0 0 12px rgba(223,153,255,0.7)', lineHeight: 1 }}>{stats.currentStreak}</span>
+                    <span style={{ fontFamily: 'Interphases Pro', fontSize: '0.85rem', color: '#ccc' }}>días seguidos</span>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem' }}>
+                    <FaGithub size={28} color="#df99ff" />
+                    <span style={{ fontFamily: 'Interphases Pro', fontSize: '2.5rem', fontWeight: 'bold', color: '#df99ff', textShadow: '0 0 12px rgba(223,153,255,0.7)', lineHeight: 1 }}>{stats.totalContribs}</span>
+                    <span style={{ fontFamily: 'Interphases Pro', fontSize: '0.85rem', color: '#ccc' }}>contribuciones {new Date().getFullYear()}</span>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
       </section>
 

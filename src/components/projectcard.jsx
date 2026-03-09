@@ -9,7 +9,7 @@ export default function ProjectCard({ title, description, tags, url, icon }) {
     const handleClick = (e) => {
         if (isInternal) {
             e.preventDefault();
-            navigate(url.slice(1)); // '#/keepit' → '/keepit'
+            navigate(url.slice(1)); 
         }
     };
 
@@ -45,7 +45,7 @@ export default function ProjectCard({ title, description, tags, url, icon }) {
                             style={{ 
                                 color: tag.color,
                                 border: `1px solid ${tag.color}`,
-                                backgroundColor: `${tag.color}20` // 20% opacity
+                                backgroundColor: `${tag.color}20` 
                             }}
                         >
                             #{tag.name}

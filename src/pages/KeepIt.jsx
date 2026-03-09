@@ -17,6 +17,37 @@ export default function KeepIt() {
         window.scrollTo(0, 0);
         getLatestRelease().then(v => setVersion(v)).catch(() => {});
         getLatestApkUrl().then(url => { if (url) setApkUrl(url); }).catch(() => {});
+
+        const link = document.querySelector("link[rel~='icon']");
+        const prevHref = link?.href;
+        const prevType = link?.type;
+
+        const canvas = document.createElement('canvas');
+        canvas.width = 32;
+        canvas.height = 32;
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+        img.onload = () => {
+            ctx.beginPath();
+            ctx.roundRect(0, 0, 32, 32, 7);
+            ctx.clip();
+            const zoom = 1.24;
+            const size = 32 * zoom;
+            const offset = (32 - size) / 2;
+            ctx.drawImage(img, offset, offset, size, size);
+            if (link) {
+                link.type = 'image/png';
+                link.href = canvas.toDataURL('image/png');
+            }
+        };
+        img.src = '/KeepItLogo.jpg';
+
+        return () => {
+            if (link) {
+                link.href = prevHref;
+                link.type = prevType;
+            }
+        };
     }, []);
 
     return (
