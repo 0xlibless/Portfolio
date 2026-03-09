@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Spline from '@splinetool/react-spline';
 import { FaCodeBranch, FaFire, FaGithub } from 'react-icons/fa';
+import { SiPython, SiJavascript, SiReact, SiNodedotjs, SiLinux, SiHtml5, SiCss3, SiGnubash, SiCplusplus } from 'react-icons/si';
 import '../assets/Home.css';
 import Navbar from '../components/navbar';
 import ProjectCard from '../components/projectcard';
@@ -18,6 +19,80 @@ export default function Home() {
       .catch(() => setStatsError('-'))
       .finally(() => setStatsLoading(false));
   }, []);
+
+  const cursorDot = useRef(null);
+  const cursorRing = useRef(null);
+  useEffect(() => {
+    const move = (e) => {
+      if (cursorDot.current) {
+        cursorDot.current.style.left = e.clientX + 'px';
+        cursorDot.current.style.top = e.clientY + 'px';
+      }
+      if (cursorRing.current) {
+        cursorRing.current.style.left = e.clientX + 'px';
+        cursorRing.current.style.top = e.clientY + 'px';
+      }
+    };
+    window.addEventListener('mousemove', move);
+    return () => window.removeEventListener('mousemove', move);
+  }, []);
+
+  const carouselRef = useRef(null);
+  const trackRef = useRef(null);
+  const posRef = useRef(0);
+  const rafRef = useRef(null);
+  const isDraggingRef = useRef(false);
+  const lastClientX = useRef(0);
+
+  useEffect(() => {
+    const speed = 0.6;
+    const animate = () => {
+      const track = trackRef.current;
+      if (track && !isDraggingRef.current) {
+        const halfWidth = track.scrollWidth / 2;
+        posRef.current -= speed;
+        if (Math.abs(posRef.current) >= halfWidth) posRef.current = 0;
+        track.style.transform = `translateX(${posRef.current}px)`;
+      }
+      rafRef.current = requestAnimationFrame(animate);
+    };
+    rafRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  const onDragStart = (clientX) => {
+    isDraggingRef.current = true;
+    lastClientX.current = clientX;
+    if (carouselRef.current) carouselRef.current.style.cursor = 'grabbing';
+  };
+  const onDragMove = (clientX) => {
+    if (!isDraggingRef.current) return;
+    const track = trackRef.current;
+    if (!track) return;
+    const delta = clientX - lastClientX.current;
+    lastClientX.current = clientX;
+    const halfWidth = track.scrollWidth / 2;
+    posRef.current += delta;
+    if (posRef.current > 0) posRef.current -= halfWidth;
+    if (Math.abs(posRef.current) >= halfWidth) posRef.current = 0;
+    track.style.transform = `translateX(${posRef.current}px)`;
+  };
+  const onDragEnd = () => {
+    isDraggingRef.current = false;
+    if (carouselRef.current) carouselRef.current.style.cursor = 'grab';
+  };
+
+  const stack = [
+    { icon: <SiPython size={36} color="#3776ab" />, label: 'Python' },
+    { icon: <SiJavascript size={36} color="#f7df1e" />, label: 'JavaScript' },
+    { icon: <SiNodedotjs size={36} color="#339933" />, label: 'Node.js' },
+    { icon: <SiReact size={36} color="#61dafb" />, label: 'React' },
+    { icon: <SiReact size={36} color="#00b4d8" />, label: 'React Native' },
+    { icon: <SiHtml5 size={36} color="#e34f26" />, label: 'HTML' },
+    { icon: <SiCss3 size={36} color="#1572b6" />, label: 'CSS' },
+    { icon: <SiGnubash size={36} color="#4eaa25" />, label: 'Bash' },
+    { icon: <SiLinux size={36} color="#fff" />, label: 'Linux' },
+  ];
 
   const projects = [
     {
@@ -78,15 +153,17 @@ export default function Home() {
 
   return (
     <main>
+      <div ref={cursorDot} className="cursor-dot" />
+      <div ref={cursorRing} className="cursor-ring" />
       <Navbar />
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, mixBlendMode: 'lighten' }}>
          <Spline className="robot" scene={`${import.meta.env.BASE_URL}robot.splinecode`} />
       </div>
 
       <section id="inicio" style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 2 }}>
-        <div className="intro scroll-animate">
+        <div className="intro intro-fadein">
             <h1 className="intro-title">Bienvenido! Soy <span className="text-neon">Agustín</span></h1>
-            <p className="intro-text"><span className="text-neon">Desarrollador de Software</span> enfocado en Web, Mobile y Seguridad Informática. 
+            <p className="intro-text"><span className="text-neon">Desarrollador de Software</span> enfocado en Web, Mobile y Seguridad Informática.
             <br /> Principiante, en busca de aprender y crecer.
             <br /> <span className="text-neon">18 años</span>, made in <span style={{color: '#66ffff'}}>Argentina</span>
             </p>
@@ -110,9 +187,33 @@ export default function Home() {
         </div>      
       </section>
 
+      <section id="stack" style={{ minHeight: '35vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 2, padding: '3rem 0' }}>
+        <h2 className="scroll-animate" style={{ fontSize: '3rem', marginBottom: '2.5rem' }}>Stack</h2>
+        <div className="scroll-animate carousel-wrapper"
+          ref={carouselRef}
+          onMouseDown={e => onDragStart(e.clientX)}
+          onMouseMove={e => onDragMove(e.clientX)}
+          onMouseUp={onDragEnd}
+          onMouseLeave={onDragEnd}
+          onTouchStart={e => onDragStart(e.touches[0].clientX)}
+          onTouchMove={e => onDragMove(e.touches[0].clientX)}
+          onTouchEnd={onDragEnd}
+          style={{ cursor: 'grab' }}
+        >
+          <div className="carousel-track" ref={trackRef}>
+            {[...stack, ...stack].map((item, i) => (
+              <div key={i} className="stack-item">
+                {item.icon}
+                <span className="stack-label">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="proyectos" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 2, padding: '4rem 2rem' }}>
           <h2 className="scroll-animate" style={{ fontSize: '4rem', marginBottom: '3rem' }}>Proyectos</h2>
-          <div className="projects-grid scroll-animate">
+          <div className="projects-grid projects-grid-animate">
             {projects.map((project, index) => (
               <ProjectCard key={index} {...project} />
             ))}
@@ -147,7 +248,7 @@ export default function Home() {
           </div>
       </section>
 
-      <section id="contacto" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 2, backgroundColor: 'rgba(0,0,0,0.5)', padding: '4rem 2rem' }}>
+      <section id="contacto" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 2, padding: '4rem 2rem' }}>
           <h2 className="scroll-animate" style={{ fontSize: '4rem', marginBottom: '2rem' }}>Contacto</h2>
           <Contact/>
       </section>

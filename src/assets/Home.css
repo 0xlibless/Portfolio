@@ -1,6 +1,14 @@
 :root {
-    background-color: #000;
     scroll-behavior: smooth;
+}
+
+body {
+    background:
+        radial-gradient(ellipse at 92% 8%,  rgba(223,153,255,0.22) 0%, transparent 45%),
+        radial-gradient(ellipse at 4%  62%, rgba(124, 58,237,0.18) 0%, transparent 42%),
+        radial-gradient(ellipse at 68% 38%, rgba(223,153,255,0.12) 0%, transparent 38%),
+        #000;
+    background-attachment: fixed;
 }
 
 /* ============================
@@ -189,6 +197,12 @@ a {
     padding: 2rem;
 }
 
+.projects-grid-animate {
+    animation: appear linear both;
+    animation-timeline: view();
+    animation-range: entry 5% cover 35%;
+}
+
 @media (min-width: 768px) {
     .projects-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -213,6 +227,7 @@ a {
 .project-card:hover {
     transform: translateY(-10px);
     background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 35px rgba(223, 153, 255, 0.3), 0 8px 32px rgba(0, 0, 0, 0.25);
 }
 
 .project-title {
@@ -305,6 +320,100 @@ a {
     color: rgba(255, 255, 255, 0.2);
     margin: 0;
 }
+
+
+@media (pointer: fine) {
+    html, body, a, button { cursor: none !important; }
+
+    .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background: #df99ff;
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 12px rgba(223, 153, 255, 0.9);
+    }
+
+    .cursor-ring {
+        width: 36px;
+        height: 36px;
+        border: 1.5px solid rgba(223, 153, 255, 0.45);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition: left 0.09s ease, top 0.09s ease;
+    }
+}
+
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.intro-fadein {
+    animation: fadeInUp 0.85s ease forwards;
+    animation-delay: 0.15s;
+    opacity: 0;
+}
+
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.carousel-wrapper {
+    overflow: hidden;
+    width: 100%;
+    user-select: none;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.carousel-track {
+    display: flex;
+    gap: 1rem;
+    width: max-content;
+    will-change: transform;
+    padding: 0.5rem 0;
+}
+
+.stack-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.1rem 1.2rem;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    min-width: 88px;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    cursor: default;
+    flex-shrink: 0;
+}
+
+.stack-item:hover {
+    background: rgba(223, 153, 255, 0.1);
+    border-color: rgba(223, 153, 255, 0.4);
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(223, 153, 255, 0.2);
+}
+
+.stack-label {
+    font-family: 'Interphases Pro', sans-serif;
+    font-size: 0.7rem;
+    color: #aaa;
+    letter-spacing: 0.4px;
+    text-align: center;
+    white-space: nowrap;
+}
+
 
 /* ============================
    RESPONSIVE TABLET (768–1023px)
