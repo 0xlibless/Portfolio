@@ -83,15 +83,15 @@ export default function Home() {
   };
 
   const stack = [
-    { icon: <SiPython size={29} color="#3776ab" />, label: 'Python' },
-    { icon: <SiJavascript size={29} color="#f7df1e" />, label: 'JavaScript' },
-    { icon: <SiNodedotjs size={29} color="#339933" />, label: 'Node.js' },
-    { icon: <SiReact size={29} color="#61dafb" />, label: 'React' },
-    { icon: <SiReact size={29} color="#00b4d8" />, label: 'React Native' },
-    { icon: <SiHtml5 size={29} color="#e34f26" />, label: 'HTML' },
-    { icon: <SiCss3 size={29} color="#1572b6" />, label: 'CSS' },
-    { icon: <SiGnubash size={29} color="#4eaa25" />, label: 'Bash' },
-    { icon: <SiLinux size={29} color="#fff" />, label: 'Linux' },
+    { icon: <SiPython size={38} color="#3776ab" />, label: 'Python' },
+    { icon: <SiJavascript size={38} color="#f7df1e" />, label: 'JavaScript' },
+    { icon: <SiNodedotjs size={38} color="#339933" />, label: 'Node.js' },
+    { icon: <SiReact size={38} color="#61dafb" />, label: 'React' },
+    { icon: <SiReact size={38} color="#00b4d8" />, label: 'React Native' },
+    { icon: <SiHtml5 size={38} color="#e34f26" />, label: 'HTML' },
+    { icon: <SiCss3 size={38} color="#1572b6" />, label: 'CSS' },
+    { icon: <SiGnubash size={38} color="#4eaa25" />, label: 'Bash' },
+    { icon: <SiLinux size={38} color="#fff" />, label: 'Linux' },
   ];
 
   const projects = [

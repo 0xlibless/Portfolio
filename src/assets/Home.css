@@ -384,12 +384,12 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.88rem 0.96rem;
-    border-radius: 11px;
+    gap: 0.5rem;
+    padding: 1.2rem 1.4rem;
+    border-radius: 14px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    min-width: 70px;
+    min-width: 95px;
     transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     cursor: default;
     flex-shrink: 0;
@@ -404,7 +404,7 @@ a {
 
 .stack-label {
     font-family: 'Interphases Pro', sans-serif;
-    font-size: 0.56rem;
+    font-size: 0.72rem;
     color: #aaa;
     letter-spacing: 0.4px;
     text-align: center;
@@ -452,6 +452,22 @@ a {
         width: 100%;
         max-width: 600px;
         gap: 4rem;
+    }
+
+    .stack-item {
+        padding: 0.88rem 0.96rem;
+        border-radius: 11px;
+        min-width: 70px;
+        gap: 0.4rem;
+    }
+
+    .stack-item svg {
+        width: 29px;
+        height: 29px;
+    }
+
+    .stack-label {
+        font-size: 0.56rem;
     }
 }
 
@@ -570,5 +586,21 @@ a {
     .contact a svg {
         width: 50px !important;
         height: 50px !important;
+    }
+
+    .stack-item {
+        padding: 0.6rem 0.7rem;
+        border-radius: 9px;
+        min-width: 54px;
+        gap: 0.3rem;
+    }
+
+    .stack-item svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .stack-label {
+        font-size: 0.48rem;
     }
 }
