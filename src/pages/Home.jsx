@@ -104,6 +104,16 @@ export default function Home() {
       icon: "github"
     },
     {
+      title: "WI-HI?",
+      description: "Herramienta para identificar dispositivos vivos en una red wifi sin utilizar ningun tipo de libreria externa, solo con sockets y raw packets",
+      url: "https://github.com/0xlibless/WI-HI",
+      tags: [
+        { name: "C++", color: "#00599c" }, 
+        { name: "Ciberseguridad", color: "rgba(255, 255, 255, 1)" }
+      ],
+      icon: "github"
+    },
+    {
       title: "ProxyScrapper",
       description: "Automatización en Python para recolectar y validar proxies desde fuentes públicas.",
       url: "https://github.com/0xlibless/FreeProxyScraper",
@@ -135,7 +145,7 @@ export default function Home() {
     },
     {
       title: "Super TaTeTi",
-      description: "Un juego propio usando de base el juego TicTacToe, pero con un nivel más alto de dificultad. Desarrollado en React Native, con backend multijugador",
+      description: "Una idea propia reimaginada del TicTacToe, pero con un nivel más alto de dificultad. Desarrollado en React Native, con backend multijugador",
       url: "https://github.com/0xlibless/SuperTaTeTi/",
       tags: [
         { name: "JavaScript", color: "#fbd719" },
