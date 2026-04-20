@@ -2,16 +2,69 @@ import '../assets/Home.css';
 import '../assets/KeepIt.css';
 import Navbar from '../components/navbar';
 import { FaGithub, FaDownload, FaCheckCircle, FaCircle } from 'react-icons/fa';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CatWithDog from '../assets/KeepIt/CatWithDog.png';
 import {getLatestRelease, getLatestApkUrl} from '../utils/KeepItGetRepo';
-
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 export default function KeepIt() {
+    const container = useRef();
     const navigate = useNavigate();
     const [version, setVersion] = useState('v1.3.1');
     const [apkUrl, setApkUrl] = useState('https://github.com/AguuZzz/KeepIt/releases/');
+
+    useGSAP(() => {
+        const tl = gsap.timeline({ defaults: { ease: "power3.out", duration: 1 } });
+        
+        tl.from(".keepit-badge-row", { y: 20, opacity: 0 })
+          .from(".keepit-title", { y: 30, opacity: 0 }, "-=0.7")
+          .from(".keepit-tagline", { y: 20, opacity: 0 }, "-=0.8")
+          .from(".keepit-desc", { y: 20, opacity: 0 }, "-=0.8")
+          .from(".keepit-hero-btns", { y: 20, opacity: 0 }, "-=0.8")
+          .from(".keepit-mockup-wrap", { scale: 0.9, opacity: 0, duration: 1.2 }, "-=1");
+
+        const sections = gsap.utils.toArray('.scroll-animate');
+        sections.forEach((section) => {
+            gsap.from(section, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            });
+        });
+
+        gsap.from(".keepit-how-card", {
+            scrollTrigger: {
+                trigger: ".keepit-how-grid",
+                start: "top 80%",
+            },
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "back.out(1.7)"
+        });
+
+        gsap.from(".keepit-todo-item", {
+            scrollTrigger: {
+                trigger: ".keepit-todo-list",
+                start: "top 85%",
+            },
+            x: -20,
+            opacity: 0,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: "power2.out"
+        });
+
+    }, { scope: container });
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -51,7 +104,7 @@ export default function KeepIt() {
     }, []);
 
     return (
-        <main className="keepit-main">
+        <main className="keepit-main" ref={container}>
             <Navbar />
 
             <section className="keepit-hero">

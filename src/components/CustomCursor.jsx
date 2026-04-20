@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
 
 export default function CustomCursor() {
   const cursorDot = useRef(null);
@@ -9,41 +10,28 @@ export default function CustomCursor() {
       return undefined;
     }
 
-    const setDotPosition = (x, y) => {
-      if (cursorDot.current) {
-        cursorDot.current.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
-      }
-    };
+    const xDotTo = gsap.quickTo(cursorDot.current, "x", { duration: 0.1, ease: "power3" });
+    const yDotTo = gsap.quickTo(cursorDot.current, "y", { duration: 0.1, ease: "power3" });
+    
+    const xRingTo = gsap.quickTo(cursorRing.current, "x", { duration: 0.4, ease: "power3" });
+    const yRingTo = gsap.quickTo(cursorRing.current, "y", { duration: 0.4, ease: "power3" });
 
-    const setRingPosition = (x, y) => {
-      if (cursorRing.current) {
-        cursorRing.current.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
-      }
-    };
+    gsap.set([cursorDot.current, cursorRing.current], { xPercent: -50, yPercent: -50 });
 
     const showCursor = () => {
-      if (cursorDot.current) {
-        cursorDot.current.style.opacity = '1';
-      }
-      if (cursorRing.current) {
-        cursorRing.current.style.opacity = '1';
-      }
+      gsap.to([cursorDot.current, cursorRing.current], { opacity: 1, duration: 0.3 });
     };
 
     const hideCursor = () => {
-      if (cursorDot.current) {
-        cursorDot.current.style.opacity = '0';
-      }
-      if (cursorRing.current) {
-        cursorRing.current.style.opacity = '0';
-      }
+      gsap.to([cursorDot.current, cursorRing.current], { opacity: 0, duration: 0.3 });
     };
 
-    const moveCursor = (event) => {
+    const moveCursor = (e) => {
       showCursor();
-
-      setDotPosition(event.clientX, event.clientY);
-      setRingPosition(event.clientX, event.clientY);
+      xDotTo(e.clientX);
+      yDotTo(e.clientY);
+      xRingTo(e.clientX);
+      yRingTo(e.clientY);
     };
 
     window.addEventListener('pointermove', moveCursor, { passive: true });

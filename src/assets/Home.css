@@ -15,23 +15,8 @@ body {
    RESPONSIVE PC 
    ============================ */
 
-@keyframes appear {
-    from {
-        opacity: 0;
-        transform: translateY(80px) scale(0.9);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
 .scroll-animate {
-    animation: appear linear both;
-
-    animation-timeline: view();
-    animation-range: entry 25% cover 50%;
+    opacity: 1; 
 }
 
 h1,
@@ -197,11 +182,6 @@ a {
     padding: 1.6rem;
 }
 
-.projects-grid-animate {
-    animation: appear linear both;
-    animation-timeline: view();
-    animation-range: entry 5% cover 35%;
-}
 
 @media (min-width: 768px) {
     .projects-grid {
@@ -319,16 +299,6 @@ a {
 }
 
 
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(22px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-.intro-fadein {
-    animation: fadeInUp 0.85s ease forwards;
-    animation-delay: 0.15s;
-    opacity: 0;
-}
 
 @keyframes marquee {
     0%   { transform: translateX(0); }
@@ -469,10 +439,6 @@ a {
    RESPONSIVE TABLET (768–1023px)
    ============================ */
 @media (min-width: 768px) and (max-width: 1023px) {
-    .scroll-animate {
-        animation-range: entry 10% cover 35%;
-    }
-
     .navbar {
         width: 60%;
     }
@@ -533,10 +499,6 @@ a {
    RESPONSIVE MÓVIL
    ============================ */
 @media (max-width: 767px) {
-
-    .scroll-animate {
-        animation-range: entry 5% cover 25%;
-    }
 
     .navbar {
         width: 48px;

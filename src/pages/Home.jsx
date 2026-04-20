@@ -7,8 +7,11 @@ import Navbar from '../components/navbar';
 import ProjectCard from '../components/projectcard';
 import { Contact } from '../components/contact';
 import { fetchGitHubStats } from '../utils/GitHubStats';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 export default function Home() {
+  const container = useRef();
   const [stats, setStats] = useState(null);
   const [statsLoading, setStatsLoading] = useState(true);
   const [statsError, setStatsError] = useState(null);
@@ -156,10 +159,74 @@ export default function Home() {
     }
   ];
 
+  useGSAP(() => {
+    gsap.from(".navbar", {
+      y: -50,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out"
+    });
+
+    gsap.from(".intro-title", {
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out",
+      delay: 0.5
+    });
+    
+    gsap.from(".intro-text", {
+      y: 30,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out",
+      delay: 0.8
+    });
+
+    gsap.to(".spline-container", {
+      scrollTrigger: {
+        trigger: "#inicio",
+        start: "top top",
+        end: "bottom top",
+        scrub: true
+      },
+      y: 150,
+      scale: 0.9,
+      opacity: 0.5
+    });
+
+    const sections = gsap.utils.toArray('.scroll-animate');
+    sections.forEach((section) => {
+      gsap.from(section, {
+        scrollTrigger: {
+          trigger: section,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.out"
+      });
+    });
+
+    gsap.from(".project-card-gsap", {
+      scrollTrigger: {
+        trigger: ".projects-grid",
+        start: "top 80%",
+      },
+      y: 60,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: "power2.out"
+    });
+  }, { scope: container });
+
   return (
-    <main>
+    <main ref={container}>
       <Navbar />
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, mixBlendMode: 'lighten', transform: 'scale(0.8)', transformOrigin: 'top center' }}>
+      <div className="spline-container" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, mixBlendMode: 'lighten', transform: 'scale(0.8)', transformOrigin: 'top center' }}>
          <Spline className="robot" scene={`${import.meta.env.BASE_URL}robot.splinecode`} />
       </div>
 
@@ -227,36 +294,11 @@ export default function Home() {
           </div>
           <div className="projects-grid projects-grid-animate">
             {projects.map((project, index) => (
-              <ProjectCard key={index} {...project} />
+              <div key={index} className="project-card-gsap">
+                <ProjectCard {...project} />
+              </div>
             ))}
-            <div className="project-card glass" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1.2rem', padding: '1.6rem' }}>
-              <h3 style={{ fontFamily: 'Interphases Pro', color: '#fff', fontSize: '1.04rem', margin: 0, letterSpacing: '0.5px' }}>GitHub Stats</h3>
-              {statsLoading && (
-                <p style={{ fontFamily: 'Interphases Pro', color: '#aaa', margin: 0 }}>Cargando...</p>
-              )}
-              {statsError && (
-                <p style={{ fontFamily: 'Interphases Pro', color: '#ff6b6b', fontSize: '0.85rem', margin: 0 }}>{statsError}</p>
-              )}
-              {stats && (
-                <div style={{ display: 'flex', gap: '1.6rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.32rem' }}>
-                    <FaCodeBranch size={22} color="#df99ff" />
-                    <span style={{ fontFamily: 'Interphases Pro', fontSize: '1.6rem', fontWeight: 'bold', color: '#df99ff', textShadow: '0 0 12px rgba(223,153,255,0.7)', lineHeight: 1 }}>{stats.mergedPRs}</span>
-                    <span style={{ fontFamily: 'Interphases Pro', fontSize: '0.68rem', color: '#ccc' }}>PRs merged</span>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.32rem' }}>
-                    <FaFire size={22} color="#df99ff" />
-                    <span style={{ fontFamily: 'Interphases Pro', fontSize: '1.6rem', fontWeight: 'bold', color: '#df99ff', textShadow: '0 0 12px rgba(223,153,255,0.7)', lineHeight: 1 }}>{stats.currentStreak}</span>
-                    <span style={{ fontFamily: 'Interphases Pro', fontSize: '0.68rem', color: '#ccc' }}>días seguidos</span>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.32rem' }}>
-                    <FaGithub size={22} color="#df99ff" />
-                    <span style={{ fontFamily: 'Interphases Pro', fontSize: '1.6rem', fontWeight: 'bold', color: '#df99ff', textShadow: '0 0 12px rgba(223,153,255,0.7)', lineHeight: 1 }}>{stats.totalContribs}</span>
-                    <span style={{ fontFamily: 'Interphases Pro', fontSize: '0.68rem', color: '#ccc' }}>contribuciones {new Date().getFullYear()}</span>
-                  </div>
-                </div>
-              )}
-            </div>
+
           </div>
       </section>
 
