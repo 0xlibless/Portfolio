@@ -1,7 +1,7 @@
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import KeepIt from './pages/KeepIt';
-import CustomCursor from './components/CustomCursor';
+import CustomCursor from './components/customcursor';
 
 function App() {
   return (

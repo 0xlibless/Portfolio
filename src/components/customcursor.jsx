@@ -45,8 +45,8 @@ export default function CustomCursor() {
 
   return (
     <>
-      <div ref={cursorDot} className="cursor-dot" />
-      <div ref={cursorRing} className="cursor-ring" />
+      <div ref={cursorDot} className="cursor cursor-dot" />
+      <div ref={cursorRing} className="cursor cursor-ring" />
     </>
   );
 }
