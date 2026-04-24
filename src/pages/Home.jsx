@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import Navbar from "../components/navbar";
 
 const PHRASES = [
@@ -74,9 +75,7 @@ function HeroImage({ containerRef }) {
 export default function Home() {
   const heroRef = useRef(null);
 
-  useEffect(() => {
-    if (!window.gsap) return;
-
+  useGSAP(() => {
     const tl = gsap.timeline({ delay: 0.15 });
 
     tl.from(".tape-band", {
@@ -115,7 +114,7 @@ export default function Home() {
         { opacity: 0, duration: 0.7 },
         "-=.4"
       );
-  }, []);
+  }, { scope: heroRef });
 
   return (
     <>

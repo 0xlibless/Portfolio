@@ -30,6 +30,7 @@
 
 .nav-links {
     display: flex;
+    margin-left: 6%;
     align-items: center;
     gap: 38px;
 }
@@ -40,28 +41,14 @@
     letter-spacing: 3.5px;
     text-transform: uppercase;
     color: #eeede8;
-    opacity: .45;
+    opacity: .15;
     transition: opacity .25s;
     position: relative;
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: #eeede8;
-    transition: width .3s ease;
+    text-decoration: none;
 }
 
 .nav-links a:hover {
     opacity: 1;
-}
-
-.nav-links a:hover::after {
-    width: 100%;
 }
 
 .nav-status {

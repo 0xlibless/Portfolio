@@ -1,32 +1,35 @@
-import { useEffect } from 'react';
+import { useRef } from 'react';
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import Logo from './Logo';
 import '../assets/Home.css';
 import './css/navbar.css';
 
 export default function Navbar() {
-    useEffect(() => {
-        if (!window.gsap) return;
+    const container = useRef();
 
+    useGSAP(() => {
         gsap.from(".navbar", {
         y: -60,
-        opacity: 0,
+        opacity: 100,
         duration: 0.9,
         ease: "power3.out",
         });
 
-        gsap.from(".nav-links a", {
+        gsap.to(".nav-links a", {
         y: -20,
-        opacity: 0,
+        opacity: 100,
         duration: 0.6,
         stagger: 0.08,
         delay: 0.4,
         ease: "power2.out",
         });
-    }, []);
+    }, { scope: container });
 
     return (
-        <nav className="navbar">
+        <nav className="navbar" ref={container}>
         <div className="nav-logo">
-            AG<em>.</em>
+            <Logo color="#eeede8" size="30px" />
         </div>
 
         <ul className="nav-links">
