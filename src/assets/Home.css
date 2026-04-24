@@ -10,6 +10,14 @@
     }
 }
 
+#logomask {
+    background-color: #0a0a0a00;
+    mask-image: url("/favicon.svg");
+    mask-position: center 70000vh; 
+    mask-repeat: no-repeat;
+    mask-size: clamp(1800vh, 3500%, 0vh);
+}
+
 .hero {
     position: relative;
     min-height: 100vh;

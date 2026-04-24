@@ -146,6 +146,20 @@ export default function Home() {
         { opacity: 0, duration: 0.7 },
         "-=.4"
       );
+      
+      const scrollt = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".hero",
+          end: "+=300%",
+          scrub: 1,
+          pin: true,
+
+        },
+      });
+
+      scrollt.to("#logomask", 
+        { maskSize: "15%", maskPosition: "center center", ease: "power2.inOut", backgroundColor: "#0a0a0a", duration: 1 }
+      );
   }, { scope: mainRef });
 
   return (
@@ -158,40 +172,41 @@ export default function Home() {
         Scroll
       </div>
 
-      <section id="about" className="hero">
-        <div className="grain" />
-        <div className="tape-band">
-          <span className="tape-text">{TAPE_CONTENT}</span>
-        </div>
-        <div className="hero-content">
-          <p className="hero-label">Portfolio 2026</p>
-
-          <h1>
-            <span className="hero-name">AGUS</span>
-            <span className="hero-name-outline">
-              DEV
-              <em
-                style={{
-                  fontStyle: "normal",
-                  color: "transparent",
-                  WebkitTextStroke: "2px #0a0a0a",
-                }}
-              >
-                .
-              </em>
-            </span>
-          </h1>
-
-          <div className="hero-tags">
-            <span className="hero-tag filled">Dev</span>
-            <span className="hero-tag">Student</span>
-            <span className="hero-tag">Builder</span>
+      <div id="logomask" className="hero">
+        <section id="about" >
+          <div className="grain" />
+          <div className="tape-band">
+            <span className="tape-text">{TAPE_CONTENT}</span>
           </div>
-        </div>
+          <div className="hero-content">
+            <p className="hero-label">Portfolio 2026</p>
 
-        <HeroImage containerRef={mainRef} />
+            <h1>
+              <span className="hero-name">AGUS</span>
+              <span className="hero-name-outline">
+                DEV
+                <em
+                  style={{
+                    fontStyle: "normal",
+                    color: "transparent",
+                    WebkitTextStroke: "2px #0a0a0a",
+                  }}
+                >
+                  .
+                </em>
+              </span>
+            </h1>
+            <div className="hero-tags">
+              <span className="hero-tag filled">Dev</span>
+              <span className="hero-tag">Student</span>
+              <span className="hero-tag">Builder</span>
+            </div>
+          </div>
 
-      </section>
+          <HeroImage containerRef={mainRef} />
+
+        </section>
+    </div>
 
       <section id="work" style={{ minHeight: '100vh', background: '#e0e0e0', padding: '100px 20px' }}>
 
