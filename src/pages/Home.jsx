@@ -153,13 +153,30 @@ export default function Home() {
           end: "+=300%",
           scrub: 1,
           pin: true,
-
         },
       });
 
-      scrollt.to("#logomask", 
-        { maskSize: "15%", maskPosition: "center center", ease: "power2.inOut", backgroundColor: "#0a0a0a", duration: 1 }
-      );
+      scrollt.fromTo("#logomask", 
+        { 
+          maskSize: "clamp(10000vh, 3500%, 0vh)", 
+          WebkitMaskSize: "clamp(10000vh, 3500%, 0vh)",
+          maskPosition: "50% 39%", 
+          WebkitMaskPosition: "50% 39%"
+        },
+        { 
+          maskSize: "clamp(2vh, 25%, 20vh)",
+          WebkitMaskSize: "clamp(2vh, 25%, 20vh)",
+          maskPosition: "50% 39%",
+          WebkitMaskPosition: "50% 39%",
+          ease: "power2.out", 
+          backgroundColor: "#0a0a0a",
+          delay: 0.3,
+        }
+      )
+      .to("#logomask", {
+        maskPosition: "50% 20%",
+        duration: .1,
+      });
   }, { scope: mainRef });
 
   return (
@@ -172,7 +189,16 @@ export default function Home() {
         Scroll
       </div>
 
-      <div id="logomask" className="hero">
+      <div 
+        id="logomask" 
+        className="hero"
+        style={{
+          WebkitMaskImage: 'url("/favicon.svg")',
+          maskImage: 'url("/favicon.svg")',
+          WebkitMaskRepeat: 'no-repeat',
+          maskRepeat: 'no-repeat'
+        }}
+      >
         <section id="about" >
           <div className="grain" />
           <div className="tape-band">

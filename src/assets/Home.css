@@ -13,16 +13,13 @@
 #logomask {
     background-color: #0a0a0a00;
     mask-image: url("/favicon.svg");
-    mask-position: center 70000vh; 
     mask-repeat: no-repeat;
     mask-size: clamp(1800vh, 3500%, 0vh);
 }
 
 .hero {
-    position: relative;
     min-height: 100vh;
     min-height: 100svh;
-    overflow: hidden;
     background: #eeede8;
     padding-top: 58px;
 }
@@ -193,7 +190,7 @@
 
 .hero-index {
     position: fixed;
-    bottom: 36px;
+    bottom: 16px;
     left: 44px;
     z-index: 10;
     font-family: 'IBM Plex Mono', monospace;
@@ -205,7 +202,7 @@
 
 .hero-scroll {
     position: fixed;
-    bottom: 36px;
+    bottom: 16px;
     right: 44px;
     z-index: 10;
     font-family: 'IBM Plex Mono', monospace;
