@@ -1,0 +1,84 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 44px;
+    background: #0a0a0a;
+    border-bottom: 1px solid #1e1e1e;
+}
+
+.nav-logo {
+    font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+    font-size: 28px;
+    letter-spacing: 6px;
+    color: #eeede8;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.nav-logo em {
+    color: #444;
+    font-style: normal;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 38px;
+}
+
+.nav-links a {
+    font-family: 'IBM Plex Mono', 'Courier New', monospace;
+    font-size: 9.5px;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: #eeede8;
+    opacity: .45;
+    transition: opacity .25s;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #eeede8;
+    transition: width .3s ease;
+}
+
+.nav-links a:hover {
+    opacity: 1;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 2px;
+    color: #2a2a2a;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #3a3a3a;
+    animation: pulse 2.4s ease-in-out infinite;
+}

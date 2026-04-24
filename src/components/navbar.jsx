@@ -1,47 +1,46 @@
-import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import '../assets/Home.css';
+import './css/navbar.css';
 
 export default function Navbar() {
-    const [isOpen, setIsOpen] = useState(false);
-    const location = useLocation();
-    const navigate = useNavigate();
-    const isProject = location.pathname !== '/';
+    useEffect(() => {
+        if (!window.gsap) return;
 
-    const scrollTo = (id) => {
-        setIsOpen(false);
-        const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-    };
+        gsap.from(".navbar", {
+        y: -60,
+        opacity: 0,
+        duration: 0.9,
+        ease: "power3.out",
+        });
 
-    const goHome = () => {
-        setIsOpen(false);
-        navigate('/');
-    };
+        gsap.from(".nav-links a", {
+        y: -20,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.08,
+        delay: 0.4,
+        ease: "power2.out",
+        });
+    }, []);
 
     return (
-        <nav className={`navbar glass${isOpen ? ' open' : ''}`}>
-            <button className="hamburger" onClick={() => setIsOpen(!isOpen)} aria-label="Menú">
-                {isOpen ? '✕' : '☰'}
-            </button>
-            <ul className={isOpen ? 'open' : ''}>
-                <li className="pfp-item">
-                    <a href="https://github.com/0xlibless" target="_blank" rel="noopener noreferrer">
-                        <img src="https://github.com/0xlibless.png" alt="0xlibless pfp" className="pfp" />
-                    </a>
-                </li>
-                {isProject ? (
-                    <li><button className="nav-back" onClick={goHome}>← Inicio</button></li>
-                ) : (
-                    <>
-                        <li><button className="nav-btn" onClick={() => scrollTo('inicio')}>Inicio</button></li>
-                        <li><button className="nav-btn" onClick={() => scrollTo('sobre-mi')}>Sobre mi</button></li>
-                        <li><button className="nav-btn" onClick={() => scrollTo('stack')}>Stack</button></li>
-                        <li><button className="nav-btn" onClick={() => scrollTo('proyectos')}>Proyectos</button></li>
-                        <li><button className="nav-btn" onClick={() => scrollTo('contacto')}>Contacto</button></li>
-                    </>
-                )}
-            </ul>
+        <nav className="navbar">
+        <div className="nav-logo">
+            AG<em>.</em>
+        </div>
+
+        <ul className="nav-links">
+            {["About", "Work", "Stack", "Contact"].map((l) => (
+            <li key={l}>
+                <a href={`#${l.toLowerCase()}`}>{l}</a>
+            </li>
+            ))}
+        </ul>
+
+        <div className="nav-status">
+            <div className="nav-dot" />
+            Somewhere, AR · 2026
+        </div>
         </nav>
     );
 }
